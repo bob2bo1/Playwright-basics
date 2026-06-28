@@ -35,8 +35,8 @@ jobs:
           TEST_ENV: stage
         run: |
           URL="https://www.stage.keiclean.co.uk"
-          lighthouse --output=html --output-path=./lighthouse_report.html --quiet --chrome-flags="--headless --no-sandbox" "$URL"
-          lighthouse --output=json --output-path=./lighthouse_report.json --quiet --chrome-flags="--headless --no-sandbox" "$URL"
+          lighthouse --output=html --output-path=./lighthouse_report.html --quiet --chrome-flags="--headless --no-sandbox --disable-blink-features=AutomationControlled --disable-web-security --user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" "$URL"
+          lighthouse --output=json --output-path=./lighthouse_report.json --quiet --chrome-flags="--headless --no-sandbox --disable-blink-features=AutomationControlled --disable-web-security --user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" "$URL"
 
       - name: Check Lighthouse Scores
         run: |
