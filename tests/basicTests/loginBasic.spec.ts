@@ -29,7 +29,7 @@ test(
  * - or negative error message - Sorry, those credential do not match
  */
 
-test('login e2e test UI (Happy Path)', async ({ page }) => {
+test('login e2e test UI (Happy Path)', { tag: '@smoke' }, async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Log In' }).click();
   await page.getByRole('textbox', { name: 'Email' }).fill('test@example.com');

@@ -6,7 +6,7 @@ test('get jobs - list all jobs - 200 OK', async ({ request }) => {
   expect(response.status()).toBe(200);
 });
 
-test('get jobs - list all jobs', { tag: '@smoke' }, async ({ request }) => {
+test('get jobs - list all jobs', { tag: '@api' }, async ({ request }) => {
   const response = await request.get('/api/jobs');
   expect(response.status()).toBe(200);
   const cleanedResponse = await cleanApiResponse(response);
