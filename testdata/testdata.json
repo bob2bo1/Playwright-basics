@@ -1,0 +1,33 @@
+{
+  "validUsers": 
+  [
+    {
+      "email": "abi@aol.com",
+      "password": "password123"
+    },
+    {
+      "email": "sally@aol.com",
+      "password": "password123"
+    },
+    {
+      "email": "test@example.com",
+      "password": "password123"
+    }
+  ],
+
+  "invalidUsers": 
+  [
+    {
+      "email": "invalid@email.com",
+      "password": "wrongpassword"
+    }
+  ],
+
+  "passwords": 
+  [
+    {
+      "password": "password123",
+      "wrongPassword": "123"
+    }
+  ]
+}

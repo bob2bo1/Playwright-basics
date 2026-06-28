@@ -1,0 +1,100 @@
+name: Performance & Accessibility Tests
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Install Lighthouse
+        run: npm install -g lighthouse
+
+      - name: Run Lighthouse
+        env:
+          TEST_ENV: stage
+        run: |
+          URL="https://www.stage.keiclean.co.uk"
+          lighthouse --output=html --output-path=./lighthouse_report.html --quiet --chrome-flags="--headless --no-sandbox" "$URL"
+          lighthouse --output=json --output-path=./lighthouse_report.json --quiet --chrome-flags="--headless --no-sandbox" "$URL"
+
+      - name: Check Lighthouse Scores
+        run: |
+          PERFORMANCE_SCORE=$(jq '.categories.performance.score * 100' ./lighthouse_report.json)
+          ACCESSIBILITY_SCORE=$(jq '.categories.accessibility.score * 100' ./lighthouse_report.json)
+          BEST_PRACTICES_SCORE=$(jq '.categories["best-practices"].score * 100' ./lighthouse_report.json)
+          SEO_SCORE=$(jq '.categories.seo.score * 100' ./lighthouse_report.json)
+
+          echo "Performance: $PERFORMANCE_SCORE"
+          echo "Accessibility: $ACCESSIBILITY_SCORE"
+          echo "Best Practices: $BEST_PRACTICES_SCORE"
+          echo "SEO: $SEO_SCORE"
+
+          if [ "$PERFORMANCE_SCORE" -lt 50 ]; then
+            echo "Performance score below 50"
+            exit 1
+          fi
+          if [ "$ACCESSIBILITY_SCORE" -lt 50 ]; then
+            echo "Accessibility score below 50"
+            exit 1
+          fi
+
+      - name: Upload Lighthouse Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./lighthouse_report.html
+          retention-days: 30
+
+  accessibility:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps
+          npm install @axe-core/playwright --save-dev
+
+      - name: Run Accessibility Tests
+        env:
+          TEST_ENV: stage
+          CI: "true"
+        run: npx playwright test --grep @accessibility
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-report
+          path: playwright-report/
+          retention-days: 30  
