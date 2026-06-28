@@ -30,11 +30,13 @@ jobs:
       - name: Run Smoke Tests
         env:
           CI: "true"
+          TEST_ENV: "stage"
         run: npm run test:smoke
 
       - name: Run Sanity Tests
         env:
           CI: "true"
+          TEST_ENV: "stage"
         run: npm run test:sanity
 
       - name: Upload Test Results
