@@ -10,6 +10,10 @@
     "test:register": "playwright test --grep @registerButton",
     "test:SMSA": "playwright test --grep @smoke|@sanity",
     "test:accessibility": "playwright test --grep @accessibility",
+    "k6:load": "k6 run tests/K6/load.js",
+    "k6:stress": "k6 run tests/K6/stress.js",
+    "k6:soak": "k6 run tests/K6/soak.js",
+    "k6:volume": "k6 run tests/K6/volume.js",
     "prepare": "husky",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
@@ -36,7 +40,8 @@
     "eslint-plugin-prettier": "^5.5.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.9.1"
+    "prettier": "^3.9.1",
+    "esbuild": "^0.24.0"
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",
