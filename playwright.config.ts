@@ -4,15 +4,14 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
- import dotenv from 'dotenv';
- import path from 'path';
- dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -22,19 +21,19 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-    // workers: process.env.CI ? 1 : os.cpus().length,
+  // workers: process.env.CI ? 1 : os.cpus().length,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
- 
+
   // Total time limit a single test is allowed to run before being forced to stop
-  timeout: 30 * 1000, 
+  timeout: 30 * 1000,
 
   // Assertion timeout: How long expect().toBeVisible() will loop and retry
   expect: {
     timeout: 5000,
   },
- 
+
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -42,7 +41,6 @@ export default defineConfig({
       process.env.TEST_ENV === 'prod'
         ? 'http://192.168.0.160:8000/'
         : `https://www.${process.env.TEST_ENV}.keiclean.co.uk/`,
-
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     //trace: 'on-first-retry',
@@ -52,7 +50,7 @@ export default defineConfig({
 
     // Navigation timeout: Maximum time allowed for page.goto() to load the network
     navigationTimeout: 15000,
-    headless: false,
+    headless: true,
 
     // 📸 Debugging Gold: Saves screenshots, videos, and network traces ONLY on failure
     screenshot: 'only-on-failure',
