@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:sanity": "playwright test --grep @sanity",
+    "test:register": "playwright test --grep @registerButton",
+    "test:SMSA": "playwright test --grep @smoke|@sanity",
     "prepare": "husky",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",

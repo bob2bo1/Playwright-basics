@@ -4,12 +4,16 @@ test('Login test', async ({ page }) => {
   await page.goto('/');
 });
 
-test('Login basic test using page content', async () => {
-  const browser = await chromium.launch();
-  const context = await browser.newContext();
-  const page = await context.newPage();
-  await page.goto('/');
-});
+test(
+  'Login basic test using page content',
+  { tag: ['@smoke', '@sanity'] },
+  async () => {
+    const browser = await chromium.launch();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto('/');
+  }
+);
 
 /**
  * Todo
