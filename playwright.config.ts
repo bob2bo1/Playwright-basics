@@ -35,7 +35,7 @@ export default defineConfig({
   },
 
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
+    /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://localhost:3000',
     baseURL:
       process.env.TEST_ENV === 'prod'
@@ -50,20 +50,21 @@ export default defineConfig({
 
     // Navigation timeout: Maximum time allowed for page.goto() to load the network
     navigationTimeout: 15000,
-    headless: true,
-
+    headless: false,
+    /* Viewport size */
+    viewport: { width: 1280, height: 720 },
     // 📸 Debugging Gold: Saves screenshots, videos, and network traces ONLY on failure
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    trace: 'retain-on-failure',
+    trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
 
     // {
     //   name: 'firefox',
@@ -86,11 +87,11 @@ export default defineConfig({
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
+    {
+      name: 'Microsoft Edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    },
+    //{
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
