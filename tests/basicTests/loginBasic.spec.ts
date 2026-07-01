@@ -25,13 +25,13 @@ test(
  * - fill password
  * - locate login button
  * - click login button
- * - asset success but seeing the logout button
+ * - asset success by seeing the logout button
  * - or negative error message - Sorry, those credential do not match
  */
 
 test('login e2e test UI (Happy Path)', { tag: '@smoke' }, async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'Log In' }).click();
+  page.getByRole('link', { name: 'Log In' }).click();
   await page.getByRole('textbox', { name: 'Email' }).fill('test@example.com');
   await page.getByRole('textbox', { name: 'Password' }).fill('password');
   await page.getByRole('button', { name: 'Log In' }).click();

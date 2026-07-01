@@ -19,7 +19,7 @@ test.describe('Data-Driven Login Tests', () => {
 
   // Test with invalid users
   for (const user of testData.invalidUsers) {
-    test.only(`login with invalid user: ${user.email}`, async ({ page }) => {
+    test(`login with invalid user: ${user.email}`, async ({ page }) => {
       await page.goto('/');
       await page.getByRole('link', { name: 'Log In' }).click();
       await page.getByRole('textbox', { name: 'Email' }).fill(user.email);
