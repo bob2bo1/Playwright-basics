@@ -9,6 +9,7 @@
     "test:sanity": "playwright test --grep @sanity",
     "test:register": "playwright test --grep @registerButton",
     "test:SMSA": "playwright test --grep @smoke|@sanity",
+    "test:api": "playwright test --grep @api",
     "fix": "playwright test --grep @fix",
     "test:accessibility": "playwright test --grep @accessibility",
     "k6:load": "k6 run tests/K6/load.js",

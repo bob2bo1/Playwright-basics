@@ -1,0 +1,5 @@
+email,password,expectedResult
+test@example.com,password123,success
+abi@aol.com,password123,success
+invalid@email.com,wrongpassword,failure
+wrong@email.com,badpass,failure
