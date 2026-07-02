@@ -50,7 +50,7 @@ export default defineConfig({
 
     // Navigation timeout: Maximum time allowed for page.goto() to load the network
     navigationTimeout: 15000,
-    headless: false,
+    headless: true,
     /* Viewport size */
     viewport: { width: 1280, height: 720 },
     // 📸 Debugging Gold: Saves screenshots, videos, and network traces ONLY on failure
